@@ -18,7 +18,7 @@ The `offset-number` is the range from **0** to **250**
 
 And, this is my **new** API:
 	
-	http://code2learn.me/imdb_top_250.php?offset=[offset-number]
+	http://code2learn.me/imdb_top_250?offset=[offset-number]
 
 I have make an Android app to receive information from the **Node.js** server. You can download it here:
 
