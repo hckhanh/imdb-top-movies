@@ -27,7 +27,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     static final String RANK_MOVIE_KEY = "rank";
-    static final String NAME_MOVIE_KEY = "title";
+    static final String NAME_MOVIE_KEY = "name";
     static final String CURRENT_MOVIE_LIST = "current_movies";
     static final String FIRST_REFRESH = "first_refresh";
     static final String COUNT_LIST = "count_list";
