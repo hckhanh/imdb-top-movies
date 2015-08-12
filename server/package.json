@@ -1,0 +1,28 @@
+{
+  "name": "imdb-server",
+  "version": "0.1.0",
+  "description": "DEMO Send IMDB top movies to client by json data",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"No test specified\"",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hckhanh/imdb-top-movies.git"
+  },
+  "keywords": [
+    "imdb",
+    "android",
+    "node.js",
+    "client",
+    "server",
+    "demo",
+    "tutorial"
+  ],
+  "author": "Khanh Hoang",
+  "license": "MIT License (MIT)",
+  "bugs": {
+    "url": "https://github.com/hckhanh/imdb-top-movies/issues"
+  }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/movie_item"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/movie_rank"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/round_text_rank"
+        android:gravity="center"
+        android:text="200"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/movie_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="8dp"
+        android:text="The Shawshank Redemption"
+        android:textSize="18sp" />
+
+</LinearLayout>

@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        travisCIConfig {
+            keyAlias 'com.demo.imdb.top.movies'
+            keyPassword System.getenv('ANDROID_APP_KEY_PASS')
+            storePassword System.getenv('ANDROID_STORE_PASS')
+            storeFile file('./release-keystore.jks')
+        }
+    }
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.demo.imdbtopmovies"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        travisCI {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.travisCIConfig
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile project(':requestResponse')
+}

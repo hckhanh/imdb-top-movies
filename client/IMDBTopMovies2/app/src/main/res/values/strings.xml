@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">IMDB Top Movies</string>
+
+    <string name="action_settings">Refresh</string>
+
+    <string-array name="rank_colors">
+        <item>#2196F3</item>
+        <item>#FFEB3B</item>
+        <item>#FF5722</item>
+        <item>#9C27B0</item>
+        <item>#009688</item>
+        <item>#00BCD4</item>
+        <item>#4CAF50</item>
+        <item>#673AB7</item>
+    </string-array>
+</resources>

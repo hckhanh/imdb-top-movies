@@ -1,0 +1,79 @@
+language: android
+
+git:
+  depth: 1
+
+env:
+  global:
+    # General information:
+    - ANDROID_ABI=armeabi-v7a # x86 or armeabi-v7a. At this time, Travis can not run android-x86
+    - ANDROID_TARGET=android-22
+    - ADB_INSTALL_TIMEOUT=10 # minutes (2 minutes by default)
+
+    ##### Server project env #####
+
+    - NODE_JS_APP_NAME=imdb-server
+
+    ##### Client project env #####
+
+    - ANDROID_DIR=client
+    - ANDROID_PROJECT_NAME=IMDBTopMovies2
+    - BUILD_TYPE=travisCI
+    - RELEASE_PATH_FILE=build/outputs/apk
+
+    # Android apps information:
+
+    # ANDROID_STORE_PASS
+    - secure: lUmyaWXwr52rKWWhf3dzk89bdQ57etLwsKG9pZnSng6bNfQQDR8e4T+P6t/Gn/LhtMgOC8ieqwtWw0WAPzYruqn4ud/jXYbPRniNEOq6dr24nn38E5UAFHHMyQl/LeouWJ9IQOD5Sq92PKa9VtRdIz/Q5dMPouXdQjh6RpkpQA/M/ZO/1m4QpSDSq9JFxZdhYgMXgdGCeDLSYZkJbEe/aAm7Dp37a5lcjNqY0T5mKcYHBj6tvUCIpdMjJjycuMW/xeftjlRl4+v1Rk6lHD09+coYuyiA068REU3+DEjW0BWr9lnvtwMcTl/6EOA30kb3B/w2rHZDv6jTHXJjIyl6V0qIwUJL+1szxxitsuRSfkUm0GxdezriBxErOhRLjxLKQnaSjGiQx8zaNsd/u/E8epVF66/4GMBmjNVS2yRcSDYZggiszWsCrJK38gGVmbc+rc7+k+XF4BzIcQAgtsKONz0ZW1JrxthQHnsExoQJHlVMl6p23tfH2KJkgjWY2kagB9vLF0uNcUEqQJXkPGY2sohWC4pJsbONgiSwkPk+AsxbJA5xOnCmpnUHtQfG/GOy7S/vjmApZeCLfrPWj9rER5tIp/azTvGZ2Od/WjnbVySyajWjQZQBwefcKCH4jNuAC5flwH+aEqQ4+YR2XAeiYkLdvi8eLDs4aCxPcy92StI=
+
+    ##### Android App #####
+
+    - ANDROID_APP_NAME=imdb-top-movies
+    - ANDROID_APP_MODULE_NAME=app
+    # ANDROID_APP_KEY_PASS
+    - secure: tiSOdFoVCtd1iu/XN0DIfS64cksCPXCs7ZF1jzItTZd3eOCnuiw+H4QbhNbEPIdbttAG4HaQE8ZzqWZjgGNUW9Pvi2eiHVCCBGPcxe4cuTJF+wjEH5yQn+GSIVjLmfpCtM4u8MlBzdQsf952cd14lCRZ/cUUNlZHgQhntIajRq1gfqoYfgggVgetWxdPnh8CTyMKg97zLFxIMyBJg4Ew9kWdw8JaMi5gYAFORml8co60F1YTgqR2t9DUyVD+amYWpJq8foKRirAUd1HE9cX/AC3nO98UBj0R7NyseGkY2zecpPGKwZ40BuVJvu1Dl6HhWuZKIgLwenJP1ouO5nWTG54EMUKmNckZlh0yZJ3Wdd/Ktl0t2AKPb9NzU19GyQP9hrgaDc93zw8Fk0YkGGD6AsxkT3NuhpGdRpJBSZ7eKa7+04/wuWZk5FHVZfTgsK2Y1G0Qf3VqFRziyk3k1y8sNuITIqHVL1rQ9aTzHZiZugzBewRUemYQJyW9D9E2gL+wrdNkHx7sMu08W12tI3+/GZl0yJRaMX04bXQsSF1V7BM5Rt93deW7HPLWcj45UhBE3trrvwXV4K6BlplFTsafUhkXSqzdpPHS9S+WIoW5fYMlnFHkOpOd8lJPibLqtdq4ja1SoF6x/52junHIEKE7Dr2v+s8zsWjlm88vZ6OtyV8=
+
+    ##### User Information #####
+
+    # FPT_USER
+    - secure: vwZmKRwrybFqFCtmFNIUoQ1jWNsG7bz37jud23aOGvML1P4GF1Xmt3LxN+yG9aBbuCNCD4sys+QHjuSgldpKv91WO2asgiTJK7v+H9ELEUkJfK6aZt4h0HZvgsiwdN0Q8goV0z5ga+i6afzbUsv1Isr233vl6T5sG0C10pSKmg8fYsVnVFzHVBTEBWIxZYlMhU4oQpJ53zLXKmgSkl8O0Uu4iBQT7oa6f/k/Er8MKo4eTy4YOswvHv5lh1rSi62aaBbYyJob2IoMxzZfHZJJm3nYmGBFRomBUdNRZQ4EVQKu8g7iIMPFyiPdinvPwfxPmZ61LJVRg65x0BU/6PBKiOVSgcCe8s+mkjceZvL5RCbdQVP2CHcr5AwVwes4AUmQWvdOygW/4aXVi5hzw7O9QDIrymKOqzoF07fGmRLoDOyLVx+g2S1goKE+vDkWcrvAGw5EQMeOPtueGXlMOYFVTPc010nlPzTQE9fTExeIrJyf9sNzTddQ9JTUDdP6sNi1IybopRt8eOlRVr2ohqTeWLG1Gu9ltUB5Cr/dSbUE2Ug4AO6eoMmORJ0bUTynQ5cOYvYhaHOJ69K0/yRwb+9Q8MO3YPXp89DPmz0hDwyfarS+BN7oWEdwEmhDGMaIzkU7atvOaH9BUsJeYgOEOVUbWHjCgY7YLvEYYM/uk8RiYdE=
+    # FPT_PASSWORD
+    - secure: KzY1Hh7iZ3H7AXrvMuz9EylhQjXiycsukc3dc6CuXydtvNrcBzzB2FTp3bTBcRiCWGUVFV1v6tTVsSixdEHcZLHu+4zdKU6wIoQo5u13VCm669+8jCXQNwkLvefKu7FM9XuPU5bVara97i/eivejW6j21gC+FGFNCQ7fqHBFAS/ZdLkcxkQEI4GMm3nzso/nHp+62GP8E5DmtvfQdlMZnDM+M4ijzykygKB/OMjI99oe0zebzw1e4VVjhT41LEc6ScOmL8quBVWef9s6xmK2jND0Lymr7tzbeRTVCDrlNjAbjn/XLNkiv3MPXnqqParx/5yBZ27xBBMfKPBvPDD/6OHrF2JlidW/lyy+zpp6e/lnlunUD57LwGW9zDCKOF+SJhtoteB7h0+oIIqM+mr6wFDDtjaLtIYRNMvuoyly3wRCWM1uWx0/pQveaBSd1a2UsFi8W9T64tVdokE0y5AGVPI0eQOhn/GKt+khrcpJRuRPpFzACjrkYNoWGXYf8+Yi45/Ie2KMFq71wdfWkOdX9jTDWSssLfDY5EC7F/ES0vDZ1hjhQfaId+UxRWD1ueVs79Dr0bKz+qhgXTbShIk5nq9lI1IAE5YQCD/zNC//07+Kx/8W3YLc3/4Pxg4kHbSAUKWChbGBU6+lUskINj2Y0wdJYad/HTv1wtXMEKIOS6I=
+    # FPT_URL
+    - secure: kcmjangGYK1B8xjmFI0luLmGsvMdYtzaFaeJbvWnWnmvZKJFGlfFbvScf5Csb3WYClPUvTpXcqwnDLUGix1XExbD+R15UYZtNFVmoJvtVjDWvhJCjGSTEPMdq0F5A5xYKbLqB4FGHscd1w6EROhvzRIAY7OhUw/GzP7glv1/D6QFEWHBVtnJFlM3trl/LNn4aoJu4cKSwJMDf7A2FN5qBMO7WAqNTq2wEJJ+66laLG1ACisEGyEZc/Ozm+DZAeBlIQNRq/vSE2Y3CyeGnc/uzb5dxkHtRIy4SlQNi+6cxiOY4W/PVinLmaNnJHshN+QqSCdiOC0zvSaS0rqvGqdLrEFSQn6vGmOZST0oKtLYzlQxrk84BUTI3fiJg8eakW/cZbWHufZ6upBqFONZwF61JImIuJ6zzS1jkBFvvIjOkOjp863HFAcAV0Xt6LtiXdlDvm4F7+4WeoOAxkfjLkQEkiJuvC1hM7HcxQoUkyGJIteAqw6BP7CWgf+4aqaXoZTYqnT63h/SZSfl9FRFWE8ir7LGlaXjlvTzK2Vru3EriK2XLtgzIKWUJGZAWk7Kx4m8VK6sh12GJUzXlVfUm+LxTywzz2UT+ghdMXtbglpvQav+b7KJoWxFDv40wYk7eAiZUYpQ+q/YS1JytXC6kg9A/cJwpuWbAMhtMxkRpAugIJo=
+
+android:
+  components:
+    # Uncomment the lines below if you want to
+    # use the latest revision of Android SDK Tools
+    - platform-tools
+    - tools
+
+    # The BuildTools version used by your project
+    - build-tools-22.0.1
+
+    # The SDK version used to compile your project
+    - $ANDROID_TARGET
+
+    # Additional components
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - extra-google-google_play_services
+
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - sys-img-$ANDROID_ABI-$ANDROID_TARGET
+
+before_install:
+  - chmod -R ugo+x travis-script/
+  - source ./travis-script/install-dependencies.sh
+
+script:
+  # Run client test
+  - ./travis-script/run-client-test.sh
+  # Run server test
+  - ./travis-script/run-server-test.sh
+
+after_success:
+  # Generate release files to publish to FPT server
+  - ./travis-script/build-for-tag-release.sh
