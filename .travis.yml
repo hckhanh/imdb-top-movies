@@ -70,7 +70,7 @@ before_install:
 
 script:
   # Run client test
-  #- ./travis-script/run-client-test.sh
+  - ./travis-script/run-client-test.sh
   # Run server test
   - ./travis-script/run-server-test.sh
 
