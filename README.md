@@ -14,15 +14,21 @@ This is current API:
 
 	http://api.androidhive.info/json/imdb_top_250.php?offset=[offset-number]
 
-The `offset-number` is the range from **0** to **250**
-
 And, this is my **new** API:
 	
 	http://code2learn.me/imdb_top_250?offset=[offset-number]
+	
+**Note:**
+
+The `offset-number` is the range from **0** to **250**
 
 I have make an Android app to receive information from the **Node.js** server. You can download it here:
 
 http://code2learn.me/download/imdb_app
+
+## Performance
+
+The server which is running on Node.js is faster than PHP server **8x times**. It's amazing!
 
 ## Continuous Integration (Travis CI)
 
