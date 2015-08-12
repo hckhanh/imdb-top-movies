@@ -26,5 +26,5 @@ http://code2learn.me/download/imdb_app
 
 ## Continuous Integration (Travis CI)
 
-APK file (Android) and Node.js server are tested and deployed automatically by Travis CI host.
+APK file (Android) ~~and Node.js server are~~ is tested and deployed automatically by Travis CI host.
 Click on the top badge to see more information.

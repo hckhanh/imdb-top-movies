@@ -1,6 +1,6 @@
 {
   "name": "imdb-server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DEMO Send IMDB top movies to client by json data",
   "main": "server.js",
   "scripts": {
@@ -24,5 +24,10 @@
   "license": "MIT License (MIT)",
   "bugs": {
     "url": "https://github.com/hckhanh/imdb-top-movies/issues"
-  }
+  },
+  "dependencies": {
+    "gulp": "~3.9.0",
+    "nodemon": "~1.4.1"
+  },
+  "devDependencies": {}
 }

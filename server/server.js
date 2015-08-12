@@ -10,7 +10,7 @@ http.createServer(function (request, response) {
 	}
 
 	var queryData = url.parse(request.url, true);
-
+	
 	switch (queryData.pathname) {
 		case '/imdb_top_250': // imdb_top_250?offset=0
 			var data = movies.getData(Number(queryData.query.offset));
