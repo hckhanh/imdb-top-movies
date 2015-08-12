@@ -8,5 +8,7 @@ npm install
 # Specify what you need to run the server project test cases.
 # ...
 
-rm -r node_modules/
+if [ -d "node_modules" ]; then
+	rm -r node_modules/
+fi
 cd $TRAVIS_BUILD_DIR/
