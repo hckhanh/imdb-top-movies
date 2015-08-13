@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         travisCIConfig {
+            storeFile file('./release-keystore.jks')
+            storePassword System.getenv('ANDROID_STORE_PASS')
             keyAlias 'com.demo.imdb.top.movies'
             keyPassword System.getenv('ANDROID_APP_KEY_PASS')
-            storePassword System.getenv('ANDROID_STORE_PASS')
-            storeFile file('./release-keystore.jks')
         }
     }
     compileSdkVersion 22
