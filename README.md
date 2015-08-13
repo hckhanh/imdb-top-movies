@@ -7,10 +7,10 @@ This application is created by following this tutorial:
 	
 http://www.androidhive.info/2015/05/android-swipe-down-to-refresh-listview-tutorial/
 
-When I do this tutorial. I just think about how to implement Swipe Refresh Layout in Android. Because I am studying about **Android Material Desing**. It's very awesome!
+When I do this tutorial. I just think about how to implement Swipe Refresh Layout in Android. Because I am studying about **Android Material Design**. It's very awesome!
 But I think I can make an full-side application. So I try learning Node.js and try to replace the current API by **my** own API :D.
 
-This is current API:
+This is old API:
 
 	http://api.androidhive.info/json/imdb_top_250.php?offset=[offset-number]
 
@@ -22,7 +22,7 @@ And, this is my **new** API:
 
 The `offset-number` is the range from **0** to **250**
 
-I have make an Android app to receive information from the **Node.js** server. You can download it here:
+I make an Android app to receive information from the **Node.js** server. You can download it here:
 
 http://code2learn.me/download/imdb_app
 
