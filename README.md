@@ -28,6 +28,8 @@ http://code2learn.me/download/imdb_app
 
 ## Performance
 
+When I try to implement PHP API, It takes me about **2.5s** to load 20 movies data from the server (include movie rank and movie name). On the other hand, Node.js server only takes about **0.3s** even less to send these data.
+
 The server which is running on Node.js is faster than PHP server **8x times**. It's amazing!
 
 ## Continuous Integration (Travis CI)
