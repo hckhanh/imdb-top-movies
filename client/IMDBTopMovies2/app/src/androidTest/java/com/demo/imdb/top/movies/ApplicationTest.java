@@ -1,4 +1,4 @@
-package com.demo.imdbtopmovies;
+package com.demo.imdb.top.movies;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

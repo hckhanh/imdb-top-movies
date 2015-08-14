@@ -1,4 +1,4 @@
-package com.demo.imdbtopmovies.data;
+package com.demo.imdb.top.movies.data;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.demo.imdbtopmovies.R;
-import com.demo.imdbtopmovies.utils.DisplayMetricsHelper;
+import com.demo.imdb.top.movies.R;
+import com.demo.imdb.top.movies.utils.DisplayMetricsHelper;
 
 import java.io.Serializable;
 import java.util.ArrayList;

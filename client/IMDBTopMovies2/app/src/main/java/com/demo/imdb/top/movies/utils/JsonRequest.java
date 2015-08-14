@@ -1,4 +1,4 @@
-package com.demo.imdbtopmovies.utils;
+package com.demo.imdb.top.movies.utils;
 
 import com.w4ys.requestresponse.UrlInvalidException;
 

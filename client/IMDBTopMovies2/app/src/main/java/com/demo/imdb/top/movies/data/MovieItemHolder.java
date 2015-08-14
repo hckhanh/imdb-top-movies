@@ -1,4 +1,4 @@
-package com.demo.imdbtopmovies.data;
+package com.demo.imdb.top.movies.data;
 
 import android.widget.TextView;
 

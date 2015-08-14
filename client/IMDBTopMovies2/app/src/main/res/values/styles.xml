@@ -1,10 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize action bar's style -->
-        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
-        <item name="actionBarStyle">@style/ActionBarStyle</item>
 
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
@@ -13,13 +10,20 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/accent</item>
+        <!--   background color -->
+        <item name="android:windowBackground">@color/background</item>
+        <!--   theme for AlertDialog -->
+        <item name="alertDialogTheme">@style/AppThemeAlertDialog</item>
 
     </style>
 
-    <!-- Style for ActionBar -->
-    <style name="ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/primary</item>
-        <item name="background">@color/primary</item>
+    <!-- Theme for AlertDialog -->
+    <style name="AppThemeAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="android:windowBackground">@color/background</item>
+
     </style>
 
 </resources>

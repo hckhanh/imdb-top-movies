@@ -1,4 +1,4 @@
-package com.demo.imdbtopmovies;
+package com.demo.imdb.top.movies;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ListView;
 
-import com.demo.imdbtopmovies.data.Movie;
-import com.demo.imdbtopmovies.data.MovieAdapter;
-import com.demo.imdbtopmovies.utils.JsonRequest;
-import com.demo.imdbtopmovies.utils.NoConnectionException;
-import com.demo.imdbtopmovies.utils.OkHttpRequest;
+import com.demo.imdb.top.movies.data.Movie;
+import com.demo.imdb.top.movies.data.MovieAdapter;
+import com.demo.imdb.top.movies.utils.JsonRequest;
+import com.demo.imdb.top.movies.utils.NoConnectionException;
+import com.demo.imdb.top.movies.utils.OkHttpRequest;
 import com.w4ys.requestresponse.UrlInvalidException;
 
 import org.json.JSONArray;
@@ -257,5 +257,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
     }
+
 }
