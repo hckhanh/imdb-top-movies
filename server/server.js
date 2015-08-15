@@ -21,7 +21,7 @@ http.createServer(function (request, response) {
 		break;
 		case '/download/imdb_app': // Download Mobile app (Android)
 			var appName = 'imdb-top-movies.apk';
-			mobile.downloadApp('./build/' + appName, function (err, buffer, size) {
+			mobile.downloadApp('./build/' + appName, function (err, readStream, size) {
 				if (err)
 					return response.end('Sorry! This file is not currently available now!');
 
@@ -30,7 +30,7 @@ http.createServer(function (request, response) {
 					'content-length' : size,
 					'content-disposition' : 'attachment; filename=' + appName
 				});
-				buffer.pipe(response);
+				readStream.pipe(response);
 			});
 			break;
 		default:

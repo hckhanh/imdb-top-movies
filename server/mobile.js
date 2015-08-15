@@ -2,7 +2,7 @@ var fs = require('fs');
 
 module.exports.downloadApp = downloadApp;
 
-function downloadApp (file, callback) { // callback(err, buffer, size)
+function downloadApp (file, callback) { // callback(err, readStream, size)
 	fs.stat(file, function (err, stats) {
 		if (err)
 			return callback(err, null, -1);
