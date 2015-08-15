@@ -26,9 +26,9 @@ http.createServer(function (request, response) {
 					return response.end('Sorry! This file is not currently available now!');
 
 				response.writeHead(200, {
-					'Content-Type' : 'application/vnd.android.package-archive',
-					'Content-Length' : size,
-					'Content-Disposition' : 'attachment; filename=' + appName
+					'content-type' : 'application/vnd.android.package-archive',
+					'content-length' : size,
+					'content-disposition' : 'attachment; filename=' + appName
 				});
 				buffer.pipe(response);
 			});
