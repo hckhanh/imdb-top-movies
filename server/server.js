@@ -15,7 +15,7 @@ http.createServer(function (request, response) {
 		case '/imdb_top_250': // imdb_top_250?offset=0
 			var data = movies.getData(Number(queryData.query.offset));
 			
-			response.writeHead(200, { 'Content-Type' : 'application/json' });
+			response.writeHead(200, { 'content-type' : 'application/json' });
 			response.write(JSON.stringify(data));
 			response.end();
 		break;
