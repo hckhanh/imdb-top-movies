@@ -1,40 +1,20 @@
-var http = require('http');
-var url = require('url');
+var express = require('express');
+var app = express();
 var movies = require('./movies.js');
-var mobile = require('./mobile.js');
 
-http.createServer(function (request, response) {
-	if (request.method != 'GET') {
-		response.writeHead(404);
-		response.end('Please send me a GET request!');
-	}
+app.get('/imdb_top_250', function (req, res) {
+	if (req.query.offset)
+		res.json(movies.getData(Number(req.query.offset)));
+	else
+		res.status(404).send('This request is not correct!');
+});
 
-	var queryData = url.parse(request.url, true);
-	
-	switch (queryData.pathname) {
-		case '/imdb_top_250': // imdb_top_250?offset=0
-			var data = movies.getData(Number(queryData.query.offset));
-			
-			response.writeHead(200, { 'content-type' : 'application/json' });
-			response.write(JSON.stringify(data));
-			response.end();
-		break;
-		case '/download/imdb_app': // Download Mobile app (Android)
-			var appName = 'imdb-top-movies.apk';
-			mobile.downloadApp('./build/' + appName, function (err, readStream, size) {
-				if (err)
-					return response.end('Sorry! This file is not currently available now!');
+app.get('/download/imdb_app', function (req, res) {
+	var appName = 'imdb-top-movies.apk';
+	res.download('./build/' + appName, appName, function (err) {
+		if (err && err.code == 'ENOENT')
+			res.status(404).end('Sorry! This file is not currently available now!');
+	});
+});
 
-				response.writeHead(200, {
-					'content-type' : 'application/vnd.android.package-archive',
-					'content-length' : size,
-					'content-disposition' : 'attachment; filename=' + appName
-				});
-				readStream.pipe(response);
-			});
-			break;
-		default:
-			response.writeHead(404);
-			response.end('Invalid GET request!');
-	}
-}).listen(6789);
+app.listen(6789);
