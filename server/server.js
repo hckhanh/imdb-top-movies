@@ -6,7 +6,7 @@ app.get('/imdb_top_250', function (req, res) {
 	if (req.query.offset)
 		res.json(movies.getData(Number(req.query.offset)));
 	else
-		res.status(404).send('This request is not correct!');
+		res.status(404).send('Invalid request!');
 });
 
 app.get('/download/imdb_app', function (req, res) {

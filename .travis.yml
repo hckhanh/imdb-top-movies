@@ -13,6 +13,8 @@ env:
     ##### Server project env #####
 
     - NODE_JS_APP_NAME=imdb-server
+    # DEPLOY_KEY
+    - DEPLOY_KEY
 
     ##### Client project env #####
 
