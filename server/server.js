@@ -13,7 +13,7 @@ app.get('/download/imdb_app', function (req, res) {
 	var appName = 'imdb-top-movies.apk';
 	res.download('./build/' + appName, appName, function (err) {
 		if (err && err.code == 'ENOENT')
-			res.status(404).end('Sorry! This file is not available now!');
+			res.status(404).end('This file is not available now!');
 	});
 });
 
