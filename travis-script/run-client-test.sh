@@ -17,7 +17,7 @@ if [ -d "$ANDROID_PROJECT_NAME" ]; then
 	./gradlew connectedCheck
 
 	# Run infer test
-	infer --fail-on-bug -- ./gradlew build
+	#infer --fail-on-bug -- ./gradlew build
 
 fi
 	

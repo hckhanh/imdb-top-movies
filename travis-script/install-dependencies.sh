@@ -11,12 +11,8 @@ eval `./opam config env`
 
 # Checkout Infer
 git clone https://github.com/facebook/infer.git
-cd infer
+cd infer/
 git submodule update --init --recursive
-# Compile clang
-facebook-clang-plugins/clang/setup.sh # go have a coffee :)
-# Compile the clang plugin
-./compile-fcp.sh
 # Compile Infer
 make -C infer
 export PATH=`pwd`/infer/bin:$PATH

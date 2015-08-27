@@ -2,12 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        travisCIConfig {
-            storeFile file('./release-keystore.jks')
-            storePassword System.getenv('ANDROID_STORE_PASS')
-            keyAlias 'com.demo.imdb.top.movies'
-            keyPassword System.getenv('ANDROID_APP_KEY_PASS')
-        }
     }
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
@@ -23,11 +17,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        travisCI {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.travisCIConfig
         }
     }
 }
