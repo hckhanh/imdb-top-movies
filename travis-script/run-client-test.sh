@@ -8,7 +8,7 @@ cd $ANDROID_DIR/
 if [ -d "$ANDROID_PROJECT_NAME" ]; then
 
 	# Run android emulator
-	./travis-script/run-emulator.sh
+	$TRAVIS_BUILD_DIR/travis-script/run-emulator.sh
 
 	cd $ANDROID_PROJECT_NAME/
 	chmod ugo+x ./gradlew
