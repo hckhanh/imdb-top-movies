@@ -11,8 +11,8 @@ if [ -d "$ANDROID_DIR/$ANDROID_PROJECT_NAME" ]; then
 	cd $ANDROID_DIR/$ANDROID_PROJECT_NAME/
 	chmod ugo+x ./gradlew
 
-	# Run connectedCheck of Android Apps
-	./gradlew :$ANDROID_APP_MODULE_NAME:connectedCheck
+	# Run connectedCheck (cC) of Android Apps
+	./gradlew build cC
 
 	# Run infer test
 	#infer --fail-on-bug -- ./gradlew build
