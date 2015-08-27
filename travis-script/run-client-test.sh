@@ -16,7 +16,7 @@ if [ -d "$ANDROID_DIR/$ANDROID_PROJECT_NAME" ]; then
 	$TRAVIS_BUILD_DIR/travis-script/run-emulator.sh
 
 	# Run connectedCheck (cC) of Android Apps
-	./gradlew :app:connectedCheck
+	./gradlew :app:test
 
 	cd $TRAVIS_BUILD_DIR/
 
