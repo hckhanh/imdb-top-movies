@@ -18,6 +18,7 @@ import com.demo.imdb.top.movies.data.MovieAdapter;
 import com.demo.imdb.top.movies.utils.JsonRequest;
 import com.demo.imdb.top.movies.utils.NoConnectionException;
 import com.demo.imdb.top.movies.utils.OkHttpRequest;
+import com.saulpower.fayeclient.FayeClient;
 import com.w4ys.requestresponse.UrlInvalidException;
 
 import org.json.JSONArray;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FayeClient a = new FayeClient(null, null, null);
 
         mainLayout = (CoordinatorLayout) findViewById(R.id.main_layout);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);

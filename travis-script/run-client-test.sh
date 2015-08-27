@@ -2,13 +2,21 @@
 
 set -ev
 
-# Run android emulator
-./travis-script/run-emulator.sh
+# Check whether 
+if [ "$TEST_ANDROID_APP" == "true" ]; then
 
-cd $ANDROID_DIR/$ANDROID_PROJECT_NAME/
-chmod ugo+x ./gradlew
+	# Run android emulator
+	./travis-script/run-emulator.sh
 
-# Run connectedCheck of Android App
-./gradlew :$ANDROID_APP_MODULE_NAME:connectedCheck
+	cd $ANDROID_DIR/$ANDROID_PROJECT_NAME/
+	chmod ugo+x ./gradlew
 
-cd $TRAVIS_BUILD_DIR/
+	# Run connectedCheck of Android Apps
+	./gradlew connectedCheck
+
+	# Run infer test
+	infer --fail-on-bug -- ./gradlew build
+
+	cd $TRAVIS_BUILD_DIR/
+
+fi
