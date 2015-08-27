@@ -10,10 +10,6 @@ env:
     - ANDROID_TARGET=android-23
     - ADB_INSTALL_TIMEOUT=10 # minutes (2 minutes by default)
 
-    ##### Server project env #####
-
-    - NODE_JS_APP_NAME=imdb-server
-
     ##### Client project env #####
 
     - ANDROID_DIR=client
