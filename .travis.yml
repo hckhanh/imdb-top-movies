@@ -28,7 +28,6 @@ env:
 
     ##### Android App #####
 
-    - TEST_ANDROID_APP=true
     - ANDROID_APP_NAME=imdb-top-movies
     - ANDROID_APP_MODULE_NAME=app
     # ANDROID_APP_KEY_PASS
@@ -75,3 +74,9 @@ script:
   
   # Run server test
   - ./travis-script/run-server-test.sh
+
+addons:
+  apt:
+    packages:
+    - gcc-4.8
+    - g++-4.8
