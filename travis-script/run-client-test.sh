@@ -2,15 +2,13 @@
 
 set -ev
 
-cd $ANDROID_DIR/
-
 # Check whether 
-if [ -d "$ANDROID_PROJECT_NAME" ]; then
+if [ -d "$ANDROID_DIR/$ANDROID_PROJECT_NAME" ]; then
 
 	# Run android emulator
-	$TRAVIS_BUILD_DIR/travis-script/run-emulator.sh
+	./travis-script/run-emulator.sh
 
-	cd $ANDROID_PROJECT_NAME/
+	cd $ANDROID_DIR/$ANDROID_PROJECT_NAME/
 	chmod ugo+x ./gradlew
 
 	# Run connectedCheck of Android Apps
@@ -18,7 +16,7 @@ if [ -d "$ANDROID_PROJECT_NAME" ]; then
 
 	# Run infer test
 	#infer --fail-on-bug -- ./gradlew build
+	
+	cd $TRAVIS_BUILD_DIR/
 
 fi
-	
-cd $TRAVIS_BUILD_DIR/
