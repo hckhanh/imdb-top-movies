@@ -37,7 +37,7 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-$ANDROID_ABI-$ANDROID_TARGET
+    - sys-img-$ANDROID_ABI-android-22
 
 before_install:
   - chmod -R ugo+x travis-script/

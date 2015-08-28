@@ -10,13 +10,13 @@ if [ -d "$ANDROID_DIR/$ANDROID_PROJECT_NAME" ]; then
 	chmod ugo+x ./gradlew
 
 	# Build Android Apps
-	#./gradlew build
+	./gradlew build
 
 	# Run android emulator
 	$TRAVIS_BUILD_DIR/travis-script/run-emulator.sh
 
 	# Run connectedCheck (cC) of Android Apps
-	./gradlew :app:test
+	./gradlew cC
 
 	cd $TRAVIS_BUILD_DIR/
 

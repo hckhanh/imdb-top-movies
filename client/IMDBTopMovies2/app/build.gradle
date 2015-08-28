@@ -33,4 +33,5 @@ dependencies {
     compile 'com.squareup.okio:okio:1.6.0'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile project(':requestResponse')
+    androidTestCompile 'junit:junit:4.12'
 }
