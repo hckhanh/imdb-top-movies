@@ -6,7 +6,6 @@ git:
 env:
   global:
     # General information:
-    - ANDROID_ABI=armeabi-v7a # x86 or armeabi-v7a. At this time, Travis can not run android-x86
     - ANDROID_TARGET=android-23
     - ADB_INSTALL_TIMEOUT=10 # minutes (2 minutes by default)
 
@@ -34,10 +33,6 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
     - extra-google-google_play_services
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    #- sys-img-$ANDROID_ABI-android-22
 
 before_install:
   - chmod -R ugo+x travis-script/
