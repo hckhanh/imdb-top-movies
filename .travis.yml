@@ -35,6 +35,7 @@ android:
     - extra-google-google_play_services
 
 before_install:
+  - pip install codecov
   - chmod -R ugo+x travis-script/
   - source ./travis-script/install-dependencies.sh
 
@@ -44,3 +45,6 @@ script:
   
   # Run server test
   - ./travis-script/run-server-test.sh
+  
+after_success:
+  - codecov
