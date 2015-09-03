@@ -1,4 +1,4 @@
-# imdb-top-movies [![Build Status](https://travis-ci.org/hckhanh/imdb-top-movies.svg)](https://travis-ci.org/hckhanh/imdb-top-movies)
+# imdb-top-movies [![Build Status](https://travis-ci.org/hckhanh/imdb-top-movies.svg)](https://travis-ci.org/hckhanh/imdb-top-movies) [![Coverage Status](https://coveralls.io/repos/hckhanh/imdb-top-movies/badge.svg?branch=master&service=github)](https://coveralls.io/github/hckhanh/imdb-top-movies?branch=master)
 This is an DEMO IMDB Top Movies app include server and client sides.
 
 --------
