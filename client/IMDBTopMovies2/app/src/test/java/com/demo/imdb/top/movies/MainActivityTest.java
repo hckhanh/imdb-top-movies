@@ -14,4 +14,5 @@ public class MainActivityTest {
     public void emailValidator_CorrectEmailSimple_ReturnsTrue() {
         assertThat(1, is(1));
     }
+
 }

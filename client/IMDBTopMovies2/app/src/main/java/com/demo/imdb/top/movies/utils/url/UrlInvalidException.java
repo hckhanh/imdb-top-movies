@@ -1,4 +1,4 @@
-package com.w4ys.requestresponse;
+package com.demo.imdb.top.movies.utils.url;
 
 /**
  * Created by hckhanh on 29/07/2015.

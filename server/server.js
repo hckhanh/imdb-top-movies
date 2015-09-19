@@ -17,4 +17,10 @@ app.get('/download/imdb_app', function (req, res) {
 	});
 });
 
+app.all('*', function (req, res) {
+	res.status(404).send('Invalid request!');
+});
+
 app.listen(6789);
+
+exports.app = app;

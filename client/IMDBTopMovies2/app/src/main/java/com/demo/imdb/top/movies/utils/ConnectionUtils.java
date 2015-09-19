@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 /**
  * Created by hckhanh on 10/08/2015.
  */
+@SuppressWarnings("unused")
 public class ConnectionUtils {
 
     public static boolean isConnected(Context context) {

@@ -1,9 +1,10 @@
-package com.demo.imdb.top.movies.utils;
+package com.demo.imdb.top.movies.utils.request;
 
 import android.util.Log;
 
-import com.w4ys.requestresponse.UrlInvalidException;
-import com.w4ys.requestresponse.UrlTool;
+import com.demo.imdb.top.movies.utils.NoConnectionException;
+import com.demo.imdb.top.movies.utils.url.UrlInvalidException;
+import com.demo.imdb.top.movies.utils.url.UrlTool;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

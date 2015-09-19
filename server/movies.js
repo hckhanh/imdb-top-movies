@@ -6,7 +6,7 @@ module.exports.getData = function getData (offset) {
 	var max = offset + LIMIT;
 	var selectedMovies = [];
 
-	for (var i = offset; i < movieNames.length && i <= max; i++) {
+	for (var i = offset; i < max && i < movieNames.length; i++) {
 		selectedMovies.push({
 			rank: i + 1,
 			name: movieNames[i]

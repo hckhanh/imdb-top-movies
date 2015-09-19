@@ -1,9 +1,10 @@
-package com.demo.imdb.top.movies.utils;
+package com.demo.imdb.top.movies.utils.request;
 
+import com.demo.imdb.top.movies.utils.NoConnectionException;
+import com.demo.imdb.top.movies.utils.url.UrlInvalidException;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.w4ys.requestresponse.UrlInvalidException;
 
 import java.io.IOException;
 

@@ -24,7 +24,7 @@ android:
     - tools
 
     # The BuildTools version used by your project
-    - build-tools-23.0.0
+    - build-tools-23.0.1
 
     # The SDK version used to compile your project
     - $ANDROID_TARGET
@@ -41,6 +41,5 @@ before_install:
 script:
   # Run client test
   - ./travis-script/run-client-test.sh
-  
   # Run server test
   - ./travis-script/run-server-test.sh

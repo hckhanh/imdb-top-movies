@@ -15,3 +15,10 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn org.codehaus.mojo.animal_sniffer.**
+-dontwarn java.nio.file.**
+
+-keepclassmembers class com.demo.imdb.top.movies.data.** {
+    <fields>;
+}

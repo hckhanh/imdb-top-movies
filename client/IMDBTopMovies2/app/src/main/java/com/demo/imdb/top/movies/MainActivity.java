@@ -14,11 +14,11 @@ import android.view.WindowManager;
 import android.widget.ListView;
 
 import com.demo.imdb.top.movies.data.Movie;
-import com.demo.imdb.top.movies.data.MovieAdapter;
-import com.demo.imdb.top.movies.utils.JsonRequest;
+import com.demo.imdb.top.movies.adapter.MovieAdapter;
+import com.demo.imdb.top.movies.utils.request.JsonRequest;
 import com.demo.imdb.top.movies.utils.NoConnectionException;
-import com.demo.imdb.top.movies.utils.OkHttpRequest;
-import com.w4ys.requestresponse.UrlInvalidException;
+import com.demo.imdb.top.movies.utils.request.OkHttpRequest;
+import com.demo.imdb.top.movies.utils.url.UrlInvalidException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         movieFetchJson.execute(getTopMovieUrl());
     }
 
-    private String getTopMovieUrl() {
+    private String getTopMovieUrl() { // localhost: 10.0.2.2
         return "http://code2learn.me/imdb_top_250?offset=" + nCountList;
     }
 

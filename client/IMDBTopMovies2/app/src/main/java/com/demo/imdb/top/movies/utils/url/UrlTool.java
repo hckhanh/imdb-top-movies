@@ -1,4 +1,4 @@
-package com.w4ys.requestresponse;
+package com.demo.imdb.top.movies.utils.url;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

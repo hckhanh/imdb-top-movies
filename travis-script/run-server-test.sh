@@ -2,10 +2,13 @@
 
 set -ev
 
-cd server/
-npm install
+if [ -f "server/package.json" ]; then
 
-# Specify what you need to run the server project test cases.
-# ...
+	cd server/
 
-cd $TRAVIS_BUILD_DIR/
+	npm install
+	npm test
+
+	cd $TRAVIS_BUILD_DIR/
+
+fi

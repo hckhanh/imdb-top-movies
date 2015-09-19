@@ -1,6 +1,7 @@
-package com.demo.imdb.top.movies.utils;
+package com.demo.imdb.top.movies.utils.request;
 
-import com.w4ys.requestresponse.UrlInvalidException;
+import com.demo.imdb.top.movies.utils.NoConnectionException;
+import com.demo.imdb.top.movies.utils.url.UrlInvalidException;
 
 /**
  * Created by hckhanh on 11/08/2015.
