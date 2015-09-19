@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -e
 
 # Check whether 
 if [ -d "$ANDROID_DIR/$ANDROID_PROJECT_NAME" ]; then

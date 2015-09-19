@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -e
 
 if [ -f "server/package.json" ]; then
 
