@@ -32,6 +32,6 @@ When I try to implement PHP API, It takes me about **2.5s** to load 20 movies da
 
 The server which is running on Node.js is faster than PHP server **8x times**. It's amazing!
 
-## Continuous Integration (Travis CI)
+## Continuous Integration Service (Travis CI)
 
 APK file (Android) is tested automatically by Travis CI host.
