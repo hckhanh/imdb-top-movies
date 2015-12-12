@@ -20,10 +20,21 @@ import com.demo.imdb.top.movies.utils.NoConnectionException;
 import com.demo.imdb.top.movies.utils.request.OkHttpRequest;
 import com.demo.imdb.top.movies.utils.url.UrlInvalidException;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.InstanceState;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.ViewById;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.util.logging.Logger;
+
+@EActivity(R.layout.activity_main)
+@OptionsMenu(R.menu.menu_main)
 public class MainActivity extends AppCompatActivity {
 
     static final String RANK_MOVIE_KEY = "rank";
@@ -39,28 +50,31 @@ public class MainActivity extends AppCompatActivity {
     private static final int INVALID_NO_CONNECTION = -4;
 
     MovieAdapter movieAdapter;
+
+    @ViewById(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @ViewById(R.id.main_layout)
     CoordinatorLayout mainLayout;
+
+    @InstanceState
     int nCountList = 0;
+
+    @InstanceState
     boolean isFirstRefresh = true;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    @InstanceState
+    Serializable currentMovieList;
 
-        mainLayout = (CoordinatorLayout) findViewById(R.id.main_layout);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+    @AfterViews
+    protected void afterInitViews() {
         ListView moviesList = (ListView) findViewById(R.id.top_movies_list);
         String[] rankColors = this.getResources().getStringArray(R.array.rank_colors);
 
-        if (savedInstanceState != null) {
-            movieAdapter = new MovieAdapter(this, rankColors, savedInstanceState.getSerializable(CURRENT_MOVIE_LIST));
-            isFirstRefresh = savedInstanceState.getBoolean(FIRST_REFRESH);
-            nCountList = savedInstanceState.getInt(COUNT_LIST);
-        } else {
+        if (currentMovieList != null)
+            movieAdapter = new MovieAdapter(this, rankColors, currentMovieList);
+        else
             movieAdapter = new MovieAdapter(this, rankColors);
-        }
 
         swipeRefreshLayout.setColorSchemeResources(
                 R.color.swipe_color_1, R.color.swipe_color_2,
@@ -84,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             );
         }
 
-        if (savedInstanceState == null)
+        if (currentMovieList == null)
             fetchMovieData();
     }
 
@@ -97,36 +111,9 @@ public class MainActivity extends AppCompatActivity {
         return "http://code2learn.me/imdb_top_250?offset=" + nCountList;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        // noinspection SimplifiableIfStatement
-        if (id == R.id.action_refresh) {
-            fetchMovieData();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable(CURRENT_MOVIE_LIST, movieAdapter.getListMovie());
-        outState.putInt(COUNT_LIST, nCountList);
-        outState.putBoolean(FIRST_REFRESH, isFirstRefresh);
+    @OptionsItem
+    void actionRefresh() {
+        fetchMovieData();
     }
 
     class MovieFetchJson extends AsyncTask<String, Void, Integer> {
@@ -198,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 nCountList += 20;
+                currentMovieList = movieAdapter.getListMovie();
                 return size;
             } else
                 return NO_DATA;
