@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     static final String RANK_MOVIE_KEY = "rank";
     static final String NAME_MOVIE_KEY = "name";
-    static final String CURRENT_MOVIE_LIST = "current_movies";
-    static final String FIRST_REFRESH = "first_refresh";
-    static final String COUNT_LIST = "count_list";
 
     private static final int NO_DATA = 0;
     private static final int INVALID_JSON_DATA = -1;
@@ -102,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             fetchMovieData();
     }
 
+    @OptionsItem(R.id.action_refresh)
     void fetchMovieData() {
         MovieFetchJson movieFetchJson = new MovieFetchJson();
         movieFetchJson.execute(getTopMovieUrl());
@@ -109,11 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
     private String getTopMovieUrl() { // localhost: 10.0.2.2
         return "http://code2learn.me/imdb_top_250?offset=" + nCountList;
-    }
-
-    @OptionsItem
-    void actionRefresh() {
-        fetchMovieData();
     }
 
     class MovieFetchJson extends AsyncTask<String, Void, Integer> {
@@ -132,20 +125,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
-         * <p/>
-         * This method can call {@link #publishProgress} to publish updates
-         * on the UI thread.
-         *
-         * @param params The parameters of the task.
-         * @return A result, defined by the subclass of this task.
-         * @see #onPreExecute()
-         * @see #onPostExecute
-         * @see #publishProgress
-         */
         @Override
         protected Integer doInBackground(String... params) {
             String jsonData;
