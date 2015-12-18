@@ -31,6 +31,10 @@ android {
     lintOptions {
         abortOnError false
     }
+    packagingOptions {
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+    }
 
 }
 
@@ -57,5 +61,6 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
     testCompile 'junit:junit:4.12'
 }

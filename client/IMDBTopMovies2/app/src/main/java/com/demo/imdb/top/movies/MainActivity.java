@@ -1,49 +1,37 @@
 package com.demo.imdb.top.movies;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ListView;
 
-import com.demo.imdb.top.movies.data.Movie;
 import com.demo.imdb.top.movies.adapter.MovieAdapter;
-import com.demo.imdb.top.movies.utils.request.JsonRequest;
-import com.demo.imdb.top.movies.utils.NoConnectionException;
-import com.demo.imdb.top.movies.utils.request.OkHttpRequest;
-import com.demo.imdb.top.movies.utils.url.UrlInvalidException;
+import com.demo.imdb.top.movies.data.Movie;
+import com.demo.imdb.top.movies.utils.ConnectionUtils;
+import com.demo.imdb.top.movies.utils.request.MovieApiClient;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.androidannotations.annotations.rest.RestService;
+import org.springframework.web.client.RestClientException;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.menu_main)
 public class MainActivity extends AppCompatActivity {
 
-    static final String RANK_MOVIE_KEY = "rank";
-    static final String NAME_MOVIE_KEY = "name";
-
     private static final int NO_DATA = 0;
     private static final int INVALID_JSON_DATA = -1;
-    private static final int INVALID_JSON_ITEM = -2;
-    private static final int INVALID_URL = -3;
     private static final int INVALID_NO_CONNECTION = -4;
 
     MovieAdapter movieAdapter;
@@ -62,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
     @InstanceState
     Serializable currentMovieList;
+
+    @RestService
+    MovieApiClient movieApiClient;
 
     @AfterViews
     protected void afterInitViews() {
@@ -101,130 +92,85 @@ public class MainActivity extends AppCompatActivity {
 
     @OptionsItem(R.id.action_refresh)
     void fetchMovieData() {
-        MovieFetchJson movieFetchJson = new MovieFetchJson();
-        movieFetchJson.execute(getTopMovieUrl());
-    }
-
-    private String getTopMovieUrl() { // localhost: 10.0.2.2
-        return "http://code2learn.me/imdb_top_250?offset=" + nCountList;
-    }
-
-    class MovieFetchJson extends AsyncTask<String, Void, Integer> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            if (!swipeRefreshLayout.isRefreshing()) {
-                swipeRefreshLayout.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(true);
-                    }
-                });
-            }
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
         }
 
-        @Override
-        protected Integer doInBackground(String... params) {
-            String jsonData;
-            try {
-                JsonRequest jsonUrlRequest = new OkHttpRequest(params[0]);
-                jsonData = jsonUrlRequest.getData();
-            } catch (NoConnectionException e) {
-                Log.e(getClass().getName(), "No connection: " + e.getUrl(), e);
-                return INVALID_NO_CONNECTION;
-            } catch (UrlInvalidException e) {
-                Log.e(getClass().getName(), "Invalid url: " + e.getErrorUrlString(), e);
-                return INVALID_URL;
-            }
+        if (ConnectionUtils.isConnected(this))
+            downloadData();
+        else
+            showResult(INVALID_NO_CONNECTION);
+    }
 
-            JSONArray movieJsonArray;
-            try {
-                movieJsonArray = new JSONArray(jsonData);
-            } catch (JSONException e) {
-                Log.e(getClass().getName(), "Can not read movie json data", e);
-                return INVALID_JSON_DATA;
-            }
+    @Background
+    protected void downloadData() {
+        int resultCode;
+        try {
+            Movie[] movies = movieApiClient.getMovie(nCountList);
 
-
-            int size = movieJsonArray.length();
-            if (size > 0) {
+            if (movies.length > 0) {
                 movieAdapter.clear();
-                for (int i = 0; i < size; i++) {
-                    try {
-                        JSONObject movieJsonObj = movieJsonArray.getJSONObject(i);
-                        Movie movie = new Movie(movieJsonObj.getInt(RANK_MOVIE_KEY),
-                                movieJsonObj.getString(NAME_MOVIE_KEY));
-
-                        movieAdapter.addItem(movie);
-                    } catch (JSONException e) {
-                        Log.e(getLocalClassName(), "Can not read movie json item", e);
-                        return INVALID_JSON_ITEM;
-                    }
-                }
+                movieAdapter.addItems(movies);
                 nCountList += 20;
-                currentMovieList = movieAdapter.getListMovie();
-                return size;
+                resultCode = movies.length;
             } else
-                return NO_DATA;
+                resultCode =  NO_DATA;
+        } catch (RestClientException e) {
+            resultCode =  INVALID_JSON_DATA;
         }
 
-        @Override
-        protected void onPostExecute(Integer exitCode) {
-            super.onPostExecute(exitCode);
-            swipeRefreshLayout.setRefreshing(false);
+        showResult(resultCode);
+    }
 
-            switch (exitCode) {
-                case NO_DATA:
-                    Snackbar.make(mainLayout, "This is the end of the list.", Snackbar.LENGTH_LONG)
+    @UiThread
+    protected void showResult(int exitCode) {
+        swipeRefreshLayout.setRefreshing(false);
+
+        switch (exitCode) {
+            case NO_DATA:
+                Snackbar.make(mainLayout, "This is the end of the list.", Snackbar.LENGTH_LONG)
+                        .setAction("Dismiss", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
+                break;
+            case INVALID_JSON_DATA:
+                movieAdapter.notifyDataSetInvalidated();
+                Snackbar.make(mainLayout, "Something went wrong!", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Refresh", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                fetchMovieData();
+                            }
+                        })
+                        .show();
+                break;
+            case INVALID_NO_CONNECTION:
+                movieAdapter.notifyDataSetInvalidated();
+                Snackbar.make(mainLayout, "No connection", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Retry", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                fetchMovieData();
+                            }
+                        })
+                        .show();
+                break;
+            default:
+                movieAdapter.notifyDataSetChanged();
+                if (isFirstRefresh) {
+                    Snackbar.make(mainLayout, "Swipe down to refresh", Snackbar.LENGTH_LONG)
                             .setAction("Dismiss", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                 }
                             })
                             .show();
-                    break;
-                case INVALID_JSON_DATA:
-                case INVALID_JSON_ITEM:
-                case INVALID_URL:
-                    movieAdapter.notifyDataSetInvalidated();
-                    Snackbar.make(mainLayout, "Something went wrong!", Snackbar.LENGTH_INDEFINITE)
-                            .setAction("Refresh", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    fetchMovieData();
-                                }
-                            })
-                            .show();
-                    break;
-                case INVALID_NO_CONNECTION:
-                    movieAdapter.notifyDataSetInvalidated();
-                    Snackbar.make(mainLayout, "No connection", Snackbar.LENGTH_INDEFINITE)
-                            .setAction("Retry", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    fetchMovieData();
-                                }
-                            })
-                            .show();
-                    break;
-                default:
-                    movieAdapter.notifyDataSetChanged();
-                    if (isFirstRefresh) {
-                        Snackbar.make(mainLayout, "Swipe down to refresh", Snackbar.LENGTH_LONG)
-                                .setAction("Dismiss", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                    }
-                                })
-                                .show();
-                        isFirstRefresh = false;
-                    }
-            }
-
+                    isFirstRefresh = false;
+                }
         }
-
     }
 
 }

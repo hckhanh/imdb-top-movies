@@ -15,6 +15,7 @@ import com.demo.imdb.top.movies.utils.DisplayMetricsHelper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by hckhanh on 09/08/2015.
@@ -137,9 +138,13 @@ public class MovieAdapter extends BaseAdapter {
             movieItemHolder.nameTextView = (TextView) movieItem.findViewById(R.id.movie_name);
         }
 
-        movieItemHolder.rankTextView.setText(Integer.toString(mMovies.get(position).getRank()));
+        movieItemHolder.rankTextView.setText(String.format("%d", mMovies.get(position).getRank()));
         movieItemHolder.nameTextView.setText(mMovies.get(position).getName());
 
         return movieItem;
+    }
+
+    public void addItems(Movie[] movies) {
+        Collections.addAll(mMovies, movies);
     }
 }
