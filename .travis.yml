@@ -6,7 +6,7 @@ git:
 env:
   global:
     # General information:
-    - ANDROID_TARGET="Google Inc.\:Google APIs\:23"
+    - ANDROID_TARGET="Google\ Inc.:Google\ APIs:23"
     - ANDROID_ABI=google_apis/x86
     - ADB_INSTALL_TIMEOUT=10 # minutes (2 minutes by default)
 
