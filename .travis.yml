@@ -35,6 +35,8 @@ android:
     - extra-android-m2repository
     - extra-google-google_play_services
 
+    - sys-img-x86-addon-google_apis-google-23
+
 before_install:
   - android list targets
   - android list sdk --no-ui --all --extended | grep -E '^id:' | awk -F '"' '{$1=""; print $2}'
