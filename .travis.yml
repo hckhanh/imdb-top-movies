@@ -36,11 +36,11 @@ android:
     - extra-google-google_play_services
 
 before_install:
+  - android list targets
   - chmod -R ugo+x travis-script/
   - source ./travis-script/install-dependencies.sh
 
 script:
-  - android list targets
   # Run client test
   - ./travis-script/run-client-test.sh
   # Run server test
