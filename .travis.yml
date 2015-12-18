@@ -37,6 +37,7 @@ android:
 
 before_install:
   - android list targets
+  - android list sdk --no-ui --all --extended | grep -E '^id:' | awk -F '"' '{$1=""; print $2}'
   - chmod -R ugo+x travis-script/
   - source ./travis-script/install-dependencies.sh
 
