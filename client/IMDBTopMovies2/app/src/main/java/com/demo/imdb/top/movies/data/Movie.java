@@ -3,9 +3,6 @@ package com.demo.imdb.top.movies.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by hckhanh on 01/08/2015.
- */
 public class Movie implements Parcelable {
 
     private int rank;

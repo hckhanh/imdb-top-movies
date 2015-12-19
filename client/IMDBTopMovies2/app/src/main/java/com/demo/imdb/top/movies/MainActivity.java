@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.demo.imdb.top.movies.adapter.MovieAdapter;
 import com.demo.imdb.top.movies.data.Movie;
 import com.demo.imdb.top.movies.utils.ConnectionUtils;
-import com.demo.imdb.top.movies.utils.request.MovieApiClient;
+import com.demo.imdb.top.movies.utils.MovieApiClient;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;

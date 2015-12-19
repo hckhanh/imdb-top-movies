@@ -16,9 +16,19 @@
 #   public *;
 #}
 
--dontwarn org.codehaus.mojo.animal_sniffer.**
--dontwarn java.nio.file.**
+-dontwarn java.beans.**
+-dontwarn org.apache.http.**
+-dontwarn com.squareup.okhttp.**
+-dontwarn com.fasterxml.jackson.**
+-dontwarn org.simpleframework.xml.**
+-dontwarn org.springframework.core.convert.support.**
 
 -keepclassmembers class com.demo.imdb.top.movies.data.** {
     <fields>;
 }
+
+-keepattributes Signature
+-keepattributes InnerClasses
+
+-dontwarn
+-dontnote

@@ -4,9 +4,6 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity_> {
 
     private Solo solo;
