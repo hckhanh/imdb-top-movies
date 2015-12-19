@@ -2,9 +2,10 @@
 
 set +e
 
+echo "Go here"
 # Check whether
 if [ -d "$ANDROID_DIR/$ANDROID_PROJECT_NAME" ]; then
-
+	echo "Go here, too"
 	cd $ANDROID_DIR/$ANDROID_PROJECT_NAME/
 	chmod ugo+x ./gradlew
 
