@@ -42,6 +42,9 @@ before_install:
 
 script:
   # Run client test
-  - ./travis-script/run-client-test.sh
+  - cd $ANDROID_DIR/$ANDROID_PROJECT_NAME/
+  - ./gradlew build connectedCheck
+	- cd $TRAVIS_BUILD_DIR/
+  #- ./travis-script/run-client-test.sh
   # Run server test
   - ./travis-script/run-server-test.sh
