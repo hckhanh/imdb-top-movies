@@ -9,7 +9,7 @@ if [ -d "$ANDROID_DIR/$ANDROID_PROJECT_NAME" ]; then
 	ls
 	cd $ANDROID_DIR/$ANDROID_PROJECT_NAME/
 	chmod ugo+x ./gradlew
-
+	ls
 	# Run unit tests for Android Apps
 	./gradlew cAT
 
