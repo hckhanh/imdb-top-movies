@@ -36,6 +36,8 @@ android:
     - extra-google-google_play_services
 
     - sys-img-x86-android-23
+    - addon-google_apis-google-23
+    - sys-img-x86-addon-google_apis-google-23
 
 before_install:
   - android list targets
@@ -43,8 +45,8 @@ before_install:
   - chmod -R ugo+x travis-script/
   - source ./travis-script/install-dependencies.sh
 
-script:
+# script:
   # Run client test
-  - ./travis-script/run-client-test.sh
+  # - ./travis-script/run-client-test.sh
   # Run server test
-  - ./travis-script/run-server-test.sh
+  # - ./travis-script/run-server-test.sh
