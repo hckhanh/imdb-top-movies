@@ -11,7 +11,7 @@ if [ -d "$ANDROID_DIR/$ANDROID_PROJECT_NAME" ]; then
 	chmod ugo+x ./gradlew
 	ls
 	# Run unit tests for Android Apps
-	./gradlew build connectedAndroidTest
+	./gradlew build connectedCheck
 
 	cd $TRAVIS_BUILD_DIR/
 
