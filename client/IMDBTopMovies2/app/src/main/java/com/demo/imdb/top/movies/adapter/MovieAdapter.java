@@ -15,10 +15,8 @@ import com.demo.imdb.top.movies.utils.DisplayMetricsHelper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by hckhanh on 09/08/2015.
- */
 public class MovieAdapter extends BaseAdapter {
 
     ArrayList<Movie> mMovies;
@@ -141,5 +139,9 @@ public class MovieAdapter extends BaseAdapter {
         movieItemHolder.nameTextView.setText(mMovies.get(position).getName());
 
         return movieItem;
+    }
+
+    public void addMovies(List<Movie> movies) {
+        this.mMovies.addAll(movies);
     }
 }

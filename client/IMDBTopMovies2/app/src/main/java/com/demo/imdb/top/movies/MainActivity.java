@@ -6,41 +6,39 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ListView;
 
-import com.demo.imdb.top.movies.data.Movie;
 import com.demo.imdb.top.movies.adapter.MovieAdapter;
-import com.demo.imdb.top.movies.utils.request.JsonRequest;
-import com.demo.imdb.top.movies.utils.NoConnectionException;
-import com.demo.imdb.top.movies.utils.request.OkHttpRequest;
-import com.demo.imdb.top.movies.utils.url.UrlInvalidException;
+import com.demo.imdb.top.movies.data.Movie;
+import com.demo.imdb.top.movies.utils.request.ImdbTopMoviesService;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.List;
+
+import retrofit.Call;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String RANK_MOVIE_KEY = "rank";
-    static final String NAME_MOVIE_KEY = "name";
-    static final String CURRENT_MOVIE_LIST = "current_movies";
-    static final String FIRST_REFRESH = "first_refresh";
     static final String COUNT_LIST = "count_list";
+    static final String FIRST_REFRESH = "first_refresh";
+    static final String CURRENT_MOVIE_LIST = "current_movies";
 
     private static final int NO_DATA = 0;
-    private static final int INVALID_JSON_DATA = -1;
-    private static final int INVALID_JSON_ITEM = -2;
-    private static final int INVALID_URL = -3;
     private static final int INVALID_NO_CONNECTION = -4;
+    private static final int INVALID_IO = -5;
 
     MovieAdapter movieAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     CoordinatorLayout mainLayout;
+    ImdbTopMoviesService moviesService;
     int nCountList = 0;
     boolean isFirstRefresh = true;
 
@@ -84,17 +82,20 @@ public class MainActivity extends AppCompatActivity {
             );
         }
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://code2learn.me")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        moviesService = retrofit.create(ImdbTopMoviesService.class);
+
         if (savedInstanceState == null)
             fetchMovieData();
     }
 
     void fetchMovieData() {
         MovieFetchJson movieFetchJson = new MovieFetchJson();
-        movieFetchJson.execute(getTopMovieUrl());
-    }
-
-    private String getTopMovieUrl() { // localhost: 10.0.2.2
-        return "http://code2learn.me/imdb_top_250?offset=" + nCountList;
+        movieFetchJson.execute();
     }
 
     @Override
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putBoolean(FIRST_REFRESH, isFirstRefresh);
     }
 
-    class MovieFetchJson extends AsyncTask<String, Void, Integer> {
+    class MovieFetchJson extends AsyncTask<Void, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
@@ -145,62 +146,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
-         * <p/>
-         * This method can call {@link #publishProgress} to publish updates
-         * on the UI thread.
-         *
-         * @param params The parameters of the task.
-         * @return A result, defined by the subclass of this task.
-         * @see #onPreExecute()
-         * @see #onPostExecute
-         * @see #publishProgress
-         */
+        private List<Movie> getMovies() throws IOException {
+            Call<List<Movie>> moviesCall = moviesService.getMovies(nCountList);
+            Response<List<Movie>> moviesResponse = moviesCall.execute();
+            return moviesResponse.body();
+        }
+
         @Override
-        protected Integer doInBackground(String... params) {
-            String jsonData;
+        protected Integer doInBackground(Void... params) {
             try {
-                JsonRequest jsonUrlRequest = new OkHttpRequest(params[0]);
-                jsonData = jsonUrlRequest.getData();
-            } catch (NoConnectionException e) {
-                Log.e(getClass().getName(), "No connection: " + e.getUrl(), e);
-                return INVALID_NO_CONNECTION;
-            } catch (UrlInvalidException e) {
-                Log.e(getClass().getName(), "Invalid url: " + e.getErrorUrlString(), e);
-                return INVALID_URL;
-            }
-
-            JSONArray movieJsonArray;
-            try {
-                movieJsonArray = new JSONArray(jsonData);
-            } catch (JSONException e) {
-                Log.e(getClass().getName(), "Can not read movie json data", e);
-                return INVALID_JSON_DATA;
-            }
-
-
-            int size = movieJsonArray.length();
-            if (size > 0) {
+                List<Movie> movies = getMovies();
                 movieAdapter.clear();
-                for (int i = 0; i < size; i++) {
-                    try {
-                        JSONObject movieJsonObj = movieJsonArray.getJSONObject(i);
-                        Movie movie = new Movie(movieJsonObj.getInt(RANK_MOVIE_KEY),
-                                movieJsonObj.getString(NAME_MOVIE_KEY));
-
-                        movieAdapter.addItem(movie);
-                    } catch (JSONException e) {
-                        Log.e(getLocalClassName(), "Can not read movie json item", e);
-                        return INVALID_JSON_ITEM;
-                    }
-                }
+                movieAdapter.addMovies(movies);
                 nCountList += 20;
-                return size;
-            } else
-                return NO_DATA;
+
+                return movies.size();
+            } catch (UnknownHostException e) {
+                return INVALID_NO_CONNECTION;
+            } catch (IOException e) {
+                return INVALID_IO;
+            }
         }
 
         @Override
@@ -218,9 +183,7 @@ public class MainActivity extends AppCompatActivity {
                             })
                             .show();
                     break;
-                case INVALID_JSON_DATA:
-                case INVALID_JSON_ITEM:
-                case INVALID_URL:
+                case INVALID_IO:
                     movieAdapter.notifyDataSetInvalidated();
                     Snackbar.make(mainLayout, "Something went wrong!", Snackbar.LENGTH_INDEFINITE)
                             .setAction("Refresh", new View.OnClickListener() {
