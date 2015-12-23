@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-/**
- * Created by hckhanh on 10/08/2015.
- */
 public class DisplayMetricsHelper {
 
     DisplayMetrics displayMetrics;
