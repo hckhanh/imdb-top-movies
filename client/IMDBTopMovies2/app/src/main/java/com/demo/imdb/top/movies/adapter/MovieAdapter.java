@@ -135,7 +135,7 @@ public class MovieAdapter extends BaseAdapter {
             movieItemHolder.nameTextView = (TextView) movieItem.findViewById(R.id.movie_name);
         }
 
-        movieItemHolder.rankTextView.setText(Integer.toString(mMovies.get(position).getRank()));
+        movieItemHolder.rankTextView.setText(String.format("%d", mMovies.get(position).getRank()));
         movieItemHolder.nameTextView.setText(mMovies.get(position).getName());
 
         return movieItem;

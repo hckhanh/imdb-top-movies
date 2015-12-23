@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int INVALID_NO_CONNECTION = -4;
     private static final int INVALID_IO = -5;
 
+    int nCountList = 0;
+    boolean isFirstRefresh = true;
     MovieAdapter movieAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     CoordinatorLayout mainLayout;
     ImdbTopMoviesService moviesService;
-    int nCountList = 0;
-    boolean isFirstRefresh = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
         moviesList.setAdapter(movieAdapter);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://code2learn.me")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        moviesService = retrofit.create(ImdbTopMoviesService.class);
+
         if (BuildConfig.DEBUG) {
             getWindow().addFlags(
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -82,15 +89,9 @@ public class MainActivity extends AppCompatActivity {
             );
         }
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://code2learn.me")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        moviesService = retrofit.create(ImdbTopMoviesService.class);
-
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             fetchMovieData();
+        }
     }
 
     void fetchMovieData() {
@@ -156,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
         protected Integer doInBackground(Void... params) {
             try {
                 List<Movie> movies = getMovies();
+                if (movies.isEmpty())
+                    return NO_DATA;
+
                 movieAdapter.clear();
                 movieAdapter.addMovies(movies);
                 nCountList += 20;
