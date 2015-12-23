@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 import com.demo.imdb.top.movies.adapter.MovieAdapter;
 import com.demo.imdb.top.movies.data.Movie;
-import com.demo.imdb.top.movies.utils.request.ImdbTopMoviesService;
+import com.demo.imdb.top.movies.utils.ImdbTopMoviesService;
 
 import java.io.IOException;
 import java.net.UnknownHostException;

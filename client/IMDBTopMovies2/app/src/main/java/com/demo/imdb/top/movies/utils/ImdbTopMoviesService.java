@@ -1,4 +1,4 @@
-package com.demo.imdb.top.movies.utils.request;
+package com.demo.imdb.top.movies.utils;
 
 import com.demo.imdb.top.movies.data.Movie;
 
