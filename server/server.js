@@ -1,6 +1,19 @@
 var express = require('express');
 var app = express();
+var fs = require('fs');
+var https = require('https');
 var movies = require('./movies.js');
+
+var sslKey = fs.readFileSync('/etc/nginx/ssl/privkey.pem');
+var sslCert = fs.readFileSync('/etc/nginx/ssl/fullchain.pem');
+
+var options = {
+    key: sslKey,
+    cert: sslCert
+};
+
+https.createServer(options, app)
+	.listen(6789);
 
 app.get('/imdb_top_250', function (req, res) {
 	if (req.query.offset)
@@ -20,7 +33,5 @@ app.get('/download/imdb_app', function (req, res) {
 app.all('*', function (req, res) {
 	res.status(404).send('Invalid request!');
 });
-
-app.listen(6789);
 
 exports.app = app;
